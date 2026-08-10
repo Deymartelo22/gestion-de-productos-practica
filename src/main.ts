@@ -1,3 +1,9 @@
+import { webcrypto } from 'node:crypto';
+
+if (!globalThis.crypto) {
+  (globalThis as { crypto?: Crypto }).crypto = webcrypto as unknown as Crypto;
+}
+
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
