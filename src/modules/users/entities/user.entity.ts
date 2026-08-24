@@ -8,6 +8,11 @@ import {
 } from 'typeorm';
 import { Favorite } from '../../favorites/entities/favorite.entity';
 
+export enum UserRole {
+  ADMIN = 'admin',
+  USER = 'user',
+}
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
@@ -21,6 +26,9 @@ export class User {
 
   @Column({ type: 'varchar', length: 255 })
   password: string;
+
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
+  role: UserRole;
 
   @OneToMany(() => Favorite, (favorite) => favorite.user)
   favorites: Favorite[];
